@@ -12,7 +12,7 @@
 % X. Qian, A. Brutti, O. Lanz, M. Omologo and A. Cavallaro, "Multi-speaker tracking from an audio-visual sensing device" in IEEE Transactions on Multimedia, Feb 2018, accepted.
 %
 % Please have a look at the 'readme.txt' and the software license file 'License.doc'
-% By exercising any rights to the work provided here, you accept and agree to be bound by the terms of the license. 
+% By exercising any rights to the work provided here, you accept and agree to be bound by the terms of the license.
 % The licensor grants you the rights in consideration of your acceptance of such terms and conditions.
 
 clear all
@@ -22,19 +22,18 @@ clc
 dbstop if error
 restoredefaultpath
 
-datapath=fullfile('..', '..','Dataset');                          % PLEASE SPECIFY THE DATAPATH!   
+datapath=fullfile('..', '..','Dataset');                          % PLEASE SPECIFY THE DATAPATH!
 
-data=1;                                                 % please specify the dataset, 0 - AV16.3, 1 - CAV3D              
+data=0;                                                 % please specify the dataset, 0 - AV16.3, 1 - CAV3D
 switch data
-    case 1
-        dataset='CAV3D';
-        SEQs=[6:20,22:26];  
-        SEQs=25;
-        CAMs=5;
     case 0
         dataset='AV16.3';
         SEQs=[8,11,12,18,19,24,25,30];
         CAMs=1:3;
+    case 1
+        dataset='CAV3D';
+        SEQs=[6:20,22:26];
+        CAMs=5;
 end
 addpath(genpath(fullfile(datapath,dataset)));           % add dataset path
 
@@ -49,10 +48,8 @@ savRst=0;   % save tracking results to file (in '../res/')
 savfig=0;   % save last frame of the visualization
 
 
-
 for seq=SEQs
-    for cam=CAMsclc
-        
+    for cam=CAMs
         AV3T(dataset,seq,cam,flag,almode,K,R,p,savfig,savRst);
     end
 end
