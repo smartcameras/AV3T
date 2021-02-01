@@ -25,6 +25,7 @@ dataset=camData.dataset;
 
 disp([dataset,':   read FBB results'])
 filename=['facebb_',dataset,'seq',num2str(seq,'%02d'),'_C',num2str(cam),'.txt'];    % face detection file name
+% filename=['tinyface_',dataset,'seq',num2str(seq,'%02d'),'_C',num2str(cam),'.txt'];    % face detection file name
 
 % read detection data
 C=dlmread(filename);

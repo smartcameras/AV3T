@@ -31,7 +31,7 @@ cspc=   'hsv'; % colour space
 
 %% Generate Reference Image from face detection
 
-if  (i>1 && fd(i-1) && ~fd(i) && i<length(fd))
+if  i>1 && fd(i-1) && ~fd(i) && i<length(fd)
     disp('---------------Generate Ref Image from detection-------------------')
     Y_k                     =   imread(fullfile(seq_name,fmt{1}, [fmt{2} num2str(i-1+Vfr(1)-1,fmt{3}) fmt{4}]));
     disp('read image')
@@ -44,12 +44,24 @@ if  (i>1 && fd(i-1) && ~fd(i) && i<length(fd))
         
         Nbins               =   Hr{mb}.par.Nbins;
         fbb                 =   round(FBB(i-1,4*(fi-1)+1:4*fi)); % current face detection
-        RefImg{mb}          =   Y_k(fbb(2)+2*(mb-1)*fbb(4):fbb(2)+fbb(4)+2*(mb-1)*fbb(4),fbb(1):fbb(1)+fbb(3),:); % face/torso region
         
-        [H,mu,sigma]        =   AV3T_Hist(RefImg{mb} ,Nbins);
-        Hr{mb} .H           =   H/sum(H);
-        Hr{mb} .mu          =   mu;
-        Hr{mb} .sigma       =   sigma;
+        y1=fbb(2)+2*(mb-1)*fbb(4);
+        y2=fbb(2)+fbb(4)+2*(mb-1)*fbb(4);
+        x1=fbb(1);
+        x2=fbb(1)+fbb(3);
+        
+        if y1>0 && x1>0 && y2<=camData.ImgSize(1) && x2<=camData.ImgSize(2)
+            RefImg{mb}          =   Y_k(fbb(2)+2*(mb-1)*fbb(4):fbb(2)+fbb(4)+2*(mb-1)*fbb(4),fbb(1):fbb(1)+fbb(3),:); % face/torso region
+            [H,mu,sigma]        =   AV3T_Hist(RefImg{mb} ,Nbins);
+            
+            Hr{mb} .H           =   H/sum(H);
+            Hr{mb} .mu          =   mu;
+            Hr{mb} .sigma       =   sigma;
+        else
+            Hr{mb} .H           =   [];
+            Hr{mb} .mu          =   [];
+            Hr{mb} .sigma       =   [];
+        end
         
     end
     

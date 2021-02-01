@@ -1,4 +1,4 @@
-function ObsV=myMOT_greedy(TrackObj,Obs,ObsV,i,Par,Info)
+function ObsV=AV3T_MOT_greedy(TrackObj,Obs,ObsV,i,Par,Info)
 % Description:
 %   greedy data association
 %   (1) compute the 3D error matrix
@@ -62,7 +62,7 @@ switch IDlen
                 M3di            =   MOUTH3di(3*(dn-1)+1:3*(dn-1)+3);
                 Ld(id,dn)       =   AV3T_Video_Gaussian(Xest3d{id},M3di',Upstd,camData);
                 
-                Y_k             =   imread(fullfile(Info.seq_name,fmt{1}, [fmt{2} num2str(i-1+Par.V.Vfr(1)-1,fmt{3}) fmt{4}]));
+                Y_k             =   imread(fullfile(Info.seq_name,fmt{1}, [fmt{2} num2str(max(i-1+Par.V.Vfr(1)-1,1),fmt{3}) fmt{4}]));
                 for mb=1:2                      % multi-body histogram
                     wvH(mb,:) 	=   visualLikelihood_Spatio(Y_k, M3di', camData, Par.V.Face3DSz,ObsV{id}.Hr{mb},mb,'hsv');
                 end

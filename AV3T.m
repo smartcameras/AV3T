@@ -1,4 +1,4 @@
-function [MAEavg,MAEstdavg]=AV3T(dataset,seq,cam,flag,almode,K,R,p,savfig,savrst)
+function AV3T(dataset,seq,cam,flag,K,R,V,p,savfig,savrst)
 % Description
 %       multiple speakers tracking in 3D using audio-visual signals with parallel PFs
 %   video:
@@ -12,9 +12,9 @@ function [MAEavg,MAEstdavg]=AV3T(dataset,seq,cam,flag,almode,K,R,p,savfig,savrst
 %
 % Requested citation acknowledgement when using this software:
 % X. Qian, A. Brutti, O. Lanz, M. Omologo and A. Cavallaro, "Multi-speaker tracking from an audio-visual sensing device" in IEEE Transactions on Multimedia, Feb 2018, accepted.
-% 
+%
 % Please have a look at the 'readme.txt' and the software license file 'License.doc'
-% By exercising any rights to the work provided here, you accept and agree to be bound by the terms of the license. 
+% By exercising any rights to the work provided here, you accept and agree to be bound by the terms of the license.
 % The licensor grants you the rights in consideration of your acceptance of such terms and conditions.
 %
 % Input:
@@ -32,6 +32,8 @@ function [MAEavg,MAEstdavg]=AV3T(dataset,seq,cam,flag,almode,K,R,p,savfig,savrst
 %   savfig:     save last frame?
 %   savrst:     save the tracking results to txt file?
 
+almode=1;   % 1 - video-suggested audio likelihood (proposed), 2- 3D GCF likelihood
+
 disp([dataset,' seq',num2str(seq),':  almode',num2str(almode),'  flag',num2str(flag)])
 
 
@@ -43,7 +45,7 @@ i0              =   1;                                                          
 mpair           =   'all';                                                          % mic pair selection e.g. 'all' means using all possible mic pairs
 [Info,Par,GT]   =   readParas(seq,dataset,cam,mpair,almode,flag,R,i0);
 [Obs,Par]       =   visual_preprocessing(Info,Par,K,flag);                          % global visual information
-Info.Sav        =   SavFile_info(Info,Par,R,savfig,savrst);
+Info.Sav        =   SavFile_info(Info,Par,R,V,savfig,savrst);
 [ObsA,Par]      =   extractGCF3Dres(Info,Par);                                      % extract audio obs
 
 PrtImg          =   [];
@@ -64,6 +66,7 @@ for iter=1:R
         end
     end
     
+    tic
     for i=Par.i0:Par.Fr
         disp([Info.dataset,' ',Info.seq_name,': ',Obs.Kstr,'  cam',num2str(cam),'  ',num2str(i),'/',num2str(Par.Fr),...
             '  flag',num2str(flag),'  almode',num2str(almode)])
@@ -77,6 +80,7 @@ for iter=1:R
         [TrackObj,Er]   =   AV3T_MOT_update(TrackObj,GT,Er,Info,i,i0,Par.ID);          % update
         
         AV3T_Visualisation(TrackObj,ObsA,ObsV,Obs,GT,Er,Info,Par,i,p,PrtImg,iter);     % display the results
+        visualisation_2IDsimple(TrackObj,ObsA,ObsV,Obs,GT,Er,Info,Par,i,p,PrtImg,iter);  % multiple speaker
         
         TrackObj        =   AV3T_MOT_resampling(TrackObj,Info,Par);                    % resampling
         
@@ -91,26 +95,16 @@ for iter=1:R
                 '     mae=',num2str(Er{id}.er(i),'%.3f'),'  MAE3d=',num2str(Er{id}.mae(i),'%.3f')])
         end
         
-    end
+    end    
     
     
     for id=Par.ID
         disp(['Finish -R',num2str(iter),'  Flag',num2str(flag),'  SpeakerID-',num2str(id),...
             '     mae=',num2str(Er{id}.er(i),'%.3f'),'  MAE3d=',num2str(Er{id}.mae(i),'%.3f')])
     end
-    
-    Info=SavRst(TrackObj,GT,Info,Par,Er,iter);                                      % save results
-    
+  
 end
 
-% averaged MAE over iterations
-for id=Par.ID
-    MAEavg     =	mean(Info.MAE{id});
-    MAEstdavg  =    mean(Info.MAEstd{id});
-    disp(['SpeakerID-',num2str(id),Info.seq_name,'   Finish all iterations!'])
-    disp(['SpeakerID-',num2str(id),Info.seq_name,'  flag=',num2str(flag),' almode=',num2str(almode),...
-        '  Average er=',num2str(MAEavg),'   std=',num2str(MAEstdavg)])
-end
 
 close all
 end

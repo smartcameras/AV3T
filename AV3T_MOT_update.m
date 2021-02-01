@@ -1,4 +1,4 @@
-function [TrackObj,Er]=myMOT_update(TrackObj,GT,Er,Info,i,i0,ID)
+function [TrackObj,Er]=AV3T_MOT_update(TrackObj,GT,Er,Info,i,i0,ID)
 % Description:
 %   update the particle weights
 %

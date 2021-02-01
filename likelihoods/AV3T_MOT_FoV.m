@@ -1,4 +1,4 @@
-function ObsV=myMOT_FoV(TrackObj,Par,Info,ObsV,i)
+function ObsV=AV3T_MOT_FoV(TrackObj,Par,Info,ObsV,i)
 % Description:  
 %    check whether targets are inside the camera's FoV
 %

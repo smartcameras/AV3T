@@ -83,7 +83,8 @@ for id=ID
                     Y_k                 =   imread(fullfile(seq_name,fmt{1}, [fmt{2} num2str(irf+Vfr(1)-1,fmt{3}) fmt{4}]));
                     ObsV{id}.RefImg{mb} =   Y_k(fbb(2,mb):fbb(2,mb)+fbb(4,mb),fbb(1,mb):fbb(1,mb)+fbb(3,mb),:); % reference image
                 else                        % no detection
-                    ObsV{id}.RefImg{mb} = imread(['RefImg',num2str(id),'_cam5.PNG']);
+%                     ObsV{id}.RefImg{mb} = imread(['RefImg',num2str(id),'_cam5.PNG']);
+                       ObsV{id}.RefImg{mb} = imread([seq_name,'id',num2str(id),'.png']);
                 end
                 
                 ObsV{id}.Hmap{mb}   =   ObsV{id}.RefImg{mb};

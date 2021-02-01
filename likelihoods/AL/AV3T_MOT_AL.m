@@ -1,4 +1,4 @@
-function [TrackObj,ObsA]=myMOT_AL(TrackObj,ObsA,ObsV,Par,Info,i,p)
+function [TrackObj,ObsA]=AV3T_MOT_AL(TrackObj,ObsA,ObsV,Par,Info,i,p)
 % Description:
 %   MOT audio likelihood
 %

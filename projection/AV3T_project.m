@@ -1,4 +1,4 @@
-function [p2d,onimg] = myproject(p3d, C)
+function [p2d,onimg] = AV3T_project(p3d, C)
 % Description:
 %   project 3D points to the image plane
 %
@@ -29,7 +29,7 @@ mode = C.dataset;
 switch mode
     case 'AV16.3'
         [p2d,onimg] = projectionAV163(p3d, C);
-    case 'FBK'
+    case 'CAV3D'
         [p2d,onimg] = projectionCHIL(p3d(1:3,:), C);
 end
 

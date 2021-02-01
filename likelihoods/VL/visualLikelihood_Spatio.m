@@ -17,6 +17,13 @@ if(nargin<6)
 end
 
 N = size(Xcart,2); % Number of particles
+wv=zeros(1,N);
+
+if isempty(Hr.H)
+   return % no reference image 
+end
+
+
 
 % Number of bins for the color histogram
 Nbins = 8;
@@ -37,7 +44,6 @@ end
 
 % Compute RGB Color Histograms and the square of the Bhattacharrya distance for
 % all bounding boxes within the FoV
-wv=zeros(1,N);
 for i=1:N
     if idx(i) == 0
         continue
@@ -56,6 +62,10 @@ for i=1:N
     
     im_patch = Y_k(x1:x2,y1:y2,:);
     [HtF,muF,sigmaF]=AV3T_Hist(im_patch,Nbins);
+    
+    if isempty(Hr.H)
+       a=1; 
+    end
     wv(i)= compareSpatiograms_new_fast(HtF,muF,sigmaF,Hr.H,Hr.mu,Hr.sigma);
     clear HtF muF sigmaF
 end

@@ -1,4 +1,4 @@
-function [TrackObj,ObsV]=myMOT_VL(TrackObj,ObsV,Info,Par,GT,i)
+function [TrackObj,ObsV]=AV3T_MOT_VL(TrackObj,ObsV,Info,Par,GT,i)
 % Date:     07/02/2019
 % Author:   Xinyuan Qian (x.qian@qmul.ac.uk)
 %

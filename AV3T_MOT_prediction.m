@@ -1,4 +1,4 @@
-function TrackObj=myMOT_prediction(TrackObj,Par,fovi,GT,i)
+function TrackObj=AV3T_MOT_prediction(TrackObj,Par,fovi,GT,i)
 % Description:
 %   particle prediction
 %

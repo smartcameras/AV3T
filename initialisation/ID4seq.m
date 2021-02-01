@@ -32,6 +32,8 @@ switch dataset
                 ID=1;
             case {18,19,24,25,30}
                 ID=[1 2];
+            case 45
+                ID=1:3;
             otherwise
                 disp('seq No not correct')
         end

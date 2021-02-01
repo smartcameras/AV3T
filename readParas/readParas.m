@@ -51,7 +51,8 @@ Nbins       =   8;
 
 % ground truth
 disp('AV-sync...')
-[GTimg, GT3d, Afr, Vfr,FoV,Fr] = AV3T_AVsync_AV163(seq_name,cam,fv,nfft,fa,dataset,camData,ID);
+[GTimg, GT3d, Afr, Vfr,FoV,Fr] = myAVsync_AV163_short(seq_name,cam,fv,nfft,fa,dataset,camData,ID);
+
 disp('Finish AV sync')
 
 % PF paramters

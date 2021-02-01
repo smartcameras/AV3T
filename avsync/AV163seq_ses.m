@@ -29,6 +29,8 @@ switch dataset
                 seq_name='seq25-2p-0111';   ses=10;
             case 30
                 seq_name='seq30-2p-1101';   ses=11;
+                            case 45
+                seq_name='seq45-3p-1111';   ses=10;
             otherwise
                 disp('seq out of scope')
         end

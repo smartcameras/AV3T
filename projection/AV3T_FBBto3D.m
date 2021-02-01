@@ -72,7 +72,7 @@ if sum(Vg)              % detection exist
             mouth3Dh = 	C.Align * (inv(T) * [iX; ones(1,N)]);
             mouth3D = mouth3Dh(1:3,:);
             
-        case 'FBK'  % missing distortion code
+        case 'CAV3D'  % missing distortion code
             
             p3d1=NaN(3,N);
             p3d2=NaN(3,N);

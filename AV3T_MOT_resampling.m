@@ -1,4 +1,4 @@
-function TrackObj=myMOT_resampling(TrackObj,Info,Par)
+function TrackObj=AV3T_MOT_resampling(TrackObj,Info,Par)
 % Description:
 %   particle resampling
 %
