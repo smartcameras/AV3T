@@ -19,7 +19,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % To execute the tracker, you need to
-%   (1) download the CAV3D dataset:                 https://ict.fbk.eu/units/speechtek/cav3d/
+%   (1) download the CAV3D dataset:                 https://speechtek.fbk.eu/cav3d-dataset/
 %   (2) download our re-arranged AV16.3 dataset:    https://drive.google.com/drive/folders/1mRmQsQQvz3xICIKqtd8KvTr5Dl7n02Zh?usp=sharing 
 %   (3) change the 'datapath' in 'test_main.m' to the data directory
 %   (4) run 'test_main.m' 
